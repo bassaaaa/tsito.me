@@ -1,8 +1,8 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
 type Props = {
-	category: string
-}
+	category: string;
+};
 
 export default function CategoryChip({ category }: Props) {
 	return (
@@ -13,5 +13,5 @@ export default function CategoryChip({ category }: Props) {
 		>
 			{category}
 		</Link>
-	)
+	);
 }

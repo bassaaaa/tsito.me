@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# tsito.dev
+
+個人技術ブログ。Next.js App Router + Markdown で構築。
+
+## Stack
+
+- **Next.js 16** (App Router) + TypeScript
+- **Tailwind CSS v4**
+- **gray-matter** — Markdown frontmatter パース
+- **unified / remark / rehype / rehype-pretty-code** — Markdown → HTML 変換・シンタックスハイライト
+- **next-themes** — ダークモード
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[http://localhost:3000](http://localhost:3000) で確認。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 記事の追加
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`content/<カテゴリ>/<slug>.md` にファイルを作成し、frontmatter を記述する。
 
-## Learn More
+```md
+---
+title: '記事タイトル'
+date: '2026-01-01'
+tags: ['tag1', 'tag2']
+category: 'カテゴリ'
+published: true
+---
 
-To learn more about Next.js, take a look at the following resources:
+本文...
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+app/           # ページ & レイアウト
+components/    # Header, Footer, PostCard, TagList, ThemeToggle
+lib/           # posts.ts, mdx.ts
+types/         # post.ts
+content/       # .md ファイル
+public/        # 静的ファイル
+```

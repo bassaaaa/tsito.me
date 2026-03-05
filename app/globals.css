@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @variant dark (&:where(.dark, .dark *));
 
@@ -111,7 +111,7 @@ body {
 
 .prose blockquote {
   border-left: 4px solid #e5e7eb;
-  padding-left: 1em;
+  padding-left: 0.5em;
   color: #6b7280;
   margin: 1.5em 0;
   font-style: italic;

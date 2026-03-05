@@ -101,7 +101,7 @@
 Next.js App Routerベースの推奨ディレクトリ構成。
 
 ```bash
-my-blog/
+/
 ├── src/
 │   ├── app/                          # App Router ルート
 │   │   ├── layout.tsx                # ルートレイアウト（ヘッダー・フッター）

@@ -3,6 +3,7 @@ import { getAllPosts, getPostBySlug } from '@/lib/posts'
 import { markdownToHtml } from '@/lib/mdx'
 import TagList from '@/components/TagList'
 import Link from 'next/link'
+import CategoryChip from '@/components/CategoryChip'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -33,12 +34,7 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
       <div className="mb-2">
-        <Link
-          href={`/blog/category/${encodeURIComponent(post.category)}`}
-          className="text-xs font-medium px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 hover:bg-blue-200 transition-colors"
-        >
-          {post.category}
-        </Link>
+        <CategoryChip category={post.category} />
       </div>
       <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
       <div className="flex items-center gap-3 mb-4">

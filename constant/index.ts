@@ -1,1 +1,1 @@
-export const SITE_NAME = 'tsito.dev';
+export const SITE_NAME = 'tsito.me';

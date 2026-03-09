@@ -4,7 +4,7 @@ import { SITE_NAME } from '../constant';
 
 export default function Header() {
 	return (
-		<header className="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur">
+		<header className="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 backdrop-blur">
 			<div className="max-w-3xl mx-auto px-4 h-14 flex items-center justify-between">
 				<Link
 					href="/"

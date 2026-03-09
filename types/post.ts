@@ -7,6 +7,8 @@ export type PostMeta = {
 	description: string;
 	published: boolean;
 	thumbnail?: string;
+	externalUrl?: string;
+	externalLabel?: string;
 };
 
 export type Post = PostMeta & { content: string };

@@ -34,6 +34,8 @@ export function getAllPosts(): PostMeta[] {
 			description: data.description ?? '',
 			published: data.published ?? false,
 			thumbnail: data.thumbnail,
+			externalUrl: data.externalUrl,
+			externalLabel: data.externalLabel,
 		} as PostMeta;
 	});
 
@@ -57,6 +59,8 @@ export function getPostBySlug(slug: string): Post | null {
 		description: data.description ?? '',
 		published: data.published ?? false,
 		thumbnail: data.thumbnail,
+		externalUrl: data.externalUrl,
+		externalLabel: data.externalLabel,
 		content,
 	};
 }

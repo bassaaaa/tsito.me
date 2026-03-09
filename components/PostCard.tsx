@@ -24,12 +24,23 @@ export default function PostCard({ post }: Props) {
 			</p>
 			<TagList tags={post.tags} />
 			<div className="mt-3">
-				<Link
-					href={`/blog/${post.slug}`}
-					className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
-				>
-					続きを読む →
-				</Link>
+				{post.externalUrl ? (
+					<a
+						href={post.externalUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+					>
+						{post.externalLabel ?? '外部サイトで読む'} →
+					</a>
+				) : (
+					<Link
+						href={`/blog/${post.slug}`}
+						className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+					>
+						続きを読む →
+					</Link>
+				)}
 			</div>
 		</article>
 	);

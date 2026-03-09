@@ -22,13 +22,13 @@ export default function Home() {
 						<p className="font-bold text-2xl tracking-wide">tsito</p>
 					</div>
 					<p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-						1996年生まれ、広島県出身。
+						1996年生まれ、広島県出身
 						<br />
-						都内でエンジニアとして働いています。
+						都内でエンジニアとして働いています
 						<br />
-						ゲーム・ガジェットが好きです。
+						ゲーム・ガジェットが好き
 						<br />
-						42 Tokyoにて2026年2月に実施された入学試験「Piscine」に合格。同年4月入学。
+						42 Tokyo 2026-02 Piscine → 2026-04 KickOff
 					</p>
 					<Link
 						href="/about"

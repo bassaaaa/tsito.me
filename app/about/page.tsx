@@ -28,12 +28,12 @@ export default function AboutPage() {
 					About
 				</h2>
 				<p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-					1996年生まれ、広島県出身。
+					1996年生まれ、広島県出身
 					<br />
-					都内でエンジニアとして働いています。
+					都内でエンジニアとして働いています
 					<br />
-					ゲーム・ガジェットが好きです。 <br />
-					42 Tokyoにて2026年2月に実施された入学試験「Piscine」に合格。同年4月入学。
+					ゲーム・ガジェットが好き <br />
+					42 Tokyo 2026-02 Piscine → 2026-04 KickOff
 				</p>
 			</section>
 

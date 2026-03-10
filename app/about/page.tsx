@@ -16,30 +16,31 @@ export default function AboutPage() {
 					alt="アイコン"
 					width={96}
 					height={96}
-					className="rounded-full ring-2 ring-(--accent) ring-offset-2 ring-offset-(--background) mb-5"
+					className="rounded-full ring-2 ring-(--accent) ring-offset-2 ring-offset-background mb-5"
 				/>
 				<h1 className="text-2xl font-bold mb-1">tsito</h1>
-				<p className="text-sm text-(--muted)">Engineer / 42 Tokyo</p>
 			</div>
 
 			<div className="space-y-10">
 				<section>
-					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--muted) mb-4">Profile</h2>
-					<p className="text-(--foreground) leading-relaxed">
-						1996年生まれ、広島県出身。
-						都内でエンジニアとして働いています。
-						ゲーム・ガジェットが好き。
-						42 Tokyo 2026-02 Piscine → 2026-04 KickOff。
+					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--muted) mb-4">
+						Profile
+					</h2>
+					<p className="text-foreground leading-relaxed">
+						1996年生まれ、広島県出身。 都内でエンジニアとして働いています。
+						ゲーム・ガジェットが好き。 42 Tokyo 2026-02 Piscine → 2026-04 KickOff。
 					</p>
 				</section>
 
 				<section className="border-t border-(--border) pt-10">
-					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--muted) mb-4">Skills</h2>
+					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--muted) mb-4">
+						Skills
+					</h2>
 					<div className="flex flex-wrap gap-2">
 						{['C', 'TypeScript', 'React', 'Next.js', 'PHP', 'SQL'].map((skill) => (
 							<span
 								key={skill}
-								className="px-3 py-1 text-sm rounded-md border border-(--border) bg-(--surface) text-(--foreground)"
+								className="px-3 py-1 text-sm rounded-md border border-(--border) bg-(--surface) text-foreground"
 							>
 								{skill}
 							</span>
@@ -48,7 +49,9 @@ export default function AboutPage() {
 				</section>
 
 				<section className="border-t border-(--border) pt-10">
-					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--muted) mb-4">This Blog</h2>
+					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--muted) mb-4">
+						This Blog
+					</h2>
 					<p className="text-(--foreground) leading-relaxed">
 						未来の自分のため、42 Tokyoでの学習記録をひっそり蓄積するのが主な目的です。
 						プレイしたゲームや購入したガジェットなどの趣味の話も気が向けば。

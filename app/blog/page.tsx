@@ -1,4 +1,4 @@
-import { getAllPosts, getAllCategories, getAllTags } from '@/lib/posts';
+import { getAllPosts, getAllCategories } from '@/lib/posts';
 import PostCard from '@/components/PostCard';
 import Link from 'next/link';
 import { SITE_NAME } from '@/constant';
@@ -8,17 +8,13 @@ type Props = {
 };
 
 export async function generateMetadata() {
-	return {
-		title: `Blog | ${SITE_NAME}`,
-		description: '記事一覧',
-	};
+	return { title: `Blog | ${SITE_NAME}`, description: '記事一覧' };
 }
 
 export default async function BlogPage({ searchParams }: Props) {
 	const params = await searchParams;
 	const allPosts = getAllPosts();
 	const categories = getAllCategories();
-	const tags = getAllTags();
 
 	const filtered = allPosts.filter((post) => {
 		if (params.category && post.category !== params.category) return false;
@@ -28,53 +24,40 @@ export default async function BlogPage({ searchParams }: Props) {
 
 	return (
 		<div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-			<h1 className="text-2xl font-bold mb-6">記事一覧</h1>
+			<h1 className="text-2xl font-bold mb-8">Blog</h1>
 
-			<div className="flex flex-wrap gap-2 mb-4">
-				<Link
-					href="/blog"
-					className={`text-xs px-3 py-1 rounded-full border transition-colors ${
-						!params.category && !params.tag
-							? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 border-transparent'
-							: 'border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800'
-					}`}
-				>
-					すべて
-				</Link>
-				{categories.map((cat) => (
+			{/* Filters */}
+			<div className="mb-8 space-y-3">
+				<div className="flex flex-wrap gap-2">
 					<Link
-						key={cat}
-						href={`/blog?category=${encodeURIComponent(cat)}`}
-						className={`text-xs px-3 py-1 rounded-full border transition-colors ${
-							params.category === cat
-								? 'bg-blue-600 text-white border-transparent'
-								: 'border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800'
+						href="/blog"
+						className={`text-xs px-3 py-1 rounded-full border font-medium transition-colors ${
+							!params.category && !params.tag
+								? 'bg-(--accent) text-white border-(--accent)'
+								: 'border-(--border) text-(--muted) hover:border-(--accent) hover:text-(--accent)'
 						}`}
 					>
-						{cat}
+						すべて
 					</Link>
-				))}
+					{categories.map((cat) => (
+						<Link
+							key={cat}
+							href={`/blog?category=${encodeURIComponent(cat)}`}
+							className={`text-xs px-3 py-1 rounded-full border font-medium transition-colors ${
+								params.category === cat
+									? 'bg-(--accent) text-white border-(--accent)'
+									: 'border-(--border) text-(--muted) hover:border-(--accent) hover:text-(--accent)'
+							}`}
+						>
+							{cat}
+						</Link>
+					))}
+				</div>
 			</div>
 
-			<div className="flex flex-wrap gap-1.5 mb-8">
-				{tags.map((tag) => (
-					<Link
-						key={tag}
-						href={`/blog?tag=${encodeURIComponent(tag)}`}
-						className={`text-xs px-2 py-0.5 rounded-full transition-colors ${
-							params.tag === tag
-								? 'bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900'
-								: 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
-						}`}
-					>
-						#{tag}
-					</Link>
-				))}
-			</div>
-
-			<div className="divide-y divide-gray-200 dark:divide-gray-800">
+			<div>
 				{filtered.length === 0 ? (
-					<p className="text-gray-500 dark:text-gray-400">記事が見つかりませんでした。</p>
+					<p className="text-(--muted) text-sm">記事が見つかりませんでした。</p>
 				) : (
 					filtered.map((post) => <PostCard key={post.slug} post={post} />)
 				)}

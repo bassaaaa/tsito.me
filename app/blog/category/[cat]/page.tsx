@@ -9,41 +9,34 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-	const categories = getAllCategories();
-	return categories.map((cat) => ({ cat: encodeURIComponent(cat) }));
+	return getAllCategories().map((cat) => ({ cat: encodeURIComponent(cat) }));
 }
 
 export async function generateMetadata({ params }: Props) {
 	const { cat } = await params;
-	const category = decodeURIComponent(cat);
-	return { title: `${category} | ${SITE_NAME}` };
+	return { title: `${decodeURIComponent(cat)} | ${SITE_NAME}` };
 }
 
 export default async function CategoryPage({ params }: Props) {
 	const { cat } = await params;
 	const category = decodeURIComponent(cat);
-	const allPosts = getAllPosts();
-	const posts = allPosts.filter((p) => p.category === category);
+	const posts = getAllPosts().filter((p) => p.category === category);
 
 	if (posts.length === 0) notFound();
 
 	return (
 		<div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-			<div className="mb-6">
-				<Link
-					href="/blog"
-					className="text-sm text-gray-500 dark:text-gray-400 hover:underline"
-				>
-					← 記事一覧
+			<div className="mb-8">
+				<Link href="/blog" className="text-sm text-(--muted) hover:text-(--accent) transition-colors">
+					← Blog
 				</Link>
+				<div className="mt-4">
+					<p className="text-xs font-semibold uppercase tracking-widest text-(--muted) mb-1">Category</p>
+					<h1 className="text-2xl font-bold">{category}</h1>
+				</div>
 			</div>
-			<h1 className="text-2xl font-bold mb-6">
-				カテゴリ: <span className="text-blue-600 dark:text-blue-400">{category}</span>
-			</h1>
-			<div className="divide-y divide-gray-200 dark:divide-gray-800">
-				{posts.map((post) => (
-					<PostCard key={post.slug} post={post} />
-				))}
+			<div>
+				{posts.map((post) => <PostCard key={post.slug} post={post} />)}
 			</div>
 		</div>
 	);

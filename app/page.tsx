@@ -5,9 +5,7 @@ import PostCard from '@/components/PostCard';
 import { SITE_NAME } from '@/constant';
 
 export async function generateMetadata() {
-	return {
-		title: `Home | ${SITE_NAME}`,
-	};
+	return { title: `Home | ${SITE_NAME}` };
 }
 
 export default function Home() {
@@ -15,51 +13,47 @@ export default function Home() {
 
 	return (
 		<div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-			<section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700 flex flex-row items-center gap-6">
+			{/* Profile */}
+			<section className="mb-12 pb-12 border-b border-(--border) flex flex-row items-center gap-6">
 				<div className="shrink-0">
 					<Image
 						src="/my_icon_bg_white.png"
 						alt="アイコン"
-						width={160}
-						height={160}
-						className="rounded-full border border-gray-200 dark:border-gray-700"
+						width={80}
+						height={80}
+						className="rounded-full ring-2 ring-(--accent) ring-offset-2 ring-offset-(--background)"
 					/>
 				</div>
-				<div className="flex flex-col gap-2">
-					<div>
-						<p className="font-bold text-2xl tracking-wide">tsito</p>
-					</div>
-					<p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-						1996年生まれ、広島県出身
-						<br />
-						都内でエンジニアとして働いています
-						<br />
-						ゲーム・ガジェットが好き
-						<br />
-						42 Tokyo 2026-02 Piscine → 2026-04 KickOff
+				<div className="flex flex-col gap-1.5">
+					<p className="font-bold text-xl">tsito</p>
+					<p className="text-(--muted) text-sm leading-relaxed">
+						エンジニア / 42 Tokyo / ゲーム・ガジェット好き
 					</p>
 					<Link
 						href="/about"
-						className="text-sm text-blue-600 dark:text-blue-400 hover:underline self-start"
+						className="text-sm text-(--accent) hover:text-(--accent-hover) hover:underline self-start transition-colors mt-0.5"
 					>
-						more about me →
+						詳しく見る →
 					</Link>
 				</div>
 			</section>
 
+			{/* Latest posts */}
 			<section>
-				<h2 className="text-xl font-semibold mb-5">最新記事</h2>
-				<div className="divide-y divide-gray-200 dark:divide-gray-800">
+				<h2 className="text-xs font-semibold uppercase tracking-widest text-(--accent) mb-6">
+					Latest Posts
+				</h2>
+				<div>
 					{posts.map((post) => (
 						<PostCard key={post.slug} post={post} />
 					))}
 				</div>
-				<div className="mt-6 text-right">
+				<div className="mt-8 text-right">
 					<Link
 						href="/blog"
-						className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+						className="text-sm text-(--accent) hover:text-(--accent-hover) transition-colors"
 					>
-						記事一覧へ →
+						すべての記事 →
 					</Link>
 				</div>
 			</section>

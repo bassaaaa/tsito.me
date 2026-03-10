@@ -6,8 +6,8 @@ export default function Footer() {
 	const yearText = currentYear == startYear ? `${startYear}` : `${startYear} - ${currentYear}`;
 
 	return (
-		<footer className="border-t border-gray-200 dark:border-gray-800 mt-16">
-			<div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
+		<footer className="border-t border-(--border) mt-16">
+			<div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 text-center text-sm text-(--muted)">
 				© {yearText} {SITE_NAME}
 			</div>
 		</footer>

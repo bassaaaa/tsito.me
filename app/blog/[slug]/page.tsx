@@ -5,24 +5,21 @@ import TagList from '@/components/TagList';
 import Link from 'next/link';
 import CategoryChip from '@/components/CategoryChip';
 import { SITE_NAME } from '@/constant';
+import TableOfContents from '@/components/TableOfContents';
 
 type Props = {
 	params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-	const posts = getAllPosts();
-	return posts.map((post) => ({ slug: post.slug }));
+	return getAllPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props) {
 	const { slug } = await params;
 	const post = getPostBySlug(slug);
 	if (!post) return {};
-	return {
-		title: `${post.title} | ${SITE_NAME}`,
-		description: post.description,
-	};
+	return { title: `${post.title} | ${SITE_NAME}`, description: post.description };
 }
 
 export default async function BlogPostPage({ params }: Props) {
@@ -30,27 +27,29 @@ export default async function BlogPostPage({ params }: Props) {
 	const post = getPostBySlug(slug);
 	if (!post) notFound();
 
-	const html = await markdownToHtml(post.content);
+	const { html, headings } = await markdownToHtml(post.content);
 
 	return (
 		<div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-			<div className="mb-2">
-				<CategoryChip category={post.category} />
-			</div>
-			<h1 className="text-3xl font-bold mb-3">{post.title}</h1>
-			<div className="flex items-center gap-3 mb-4">
-				<time className="text-sm text-gray-500 dark:text-gray-400">{post.date}</time>
-			</div>
 			<div className="mb-8">
+				<div className="flex items-center gap-2 mb-3">
+					<CategoryChip category={post.category} />
+					<time className="text-xs text-(--muted) font-mono">{post.date}</time>
+				</div>
+				<h1 className="text-3xl font-bold leading-tight mb-4">{post.title}</h1>
 				<TagList tags={post.tags} />
 			</div>
+
+			<TableOfContents headings={headings} />
+
 			<article className="prose" dangerouslySetInnerHTML={{ __html: html }} />
-			<div className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800">
+
+			<div className="mt-12 pt-6 border-t border-(--border)">
 				<Link
 					href="/blog"
-					className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+					className="text-sm text-(--accent) hover:text-(--accent-hover) transition-colors"
 				>
-					← 記事一覧へ
+					← Blog 一覧へ
 				</Link>
 			</div>
 		</div>

@@ -23,7 +23,7 @@ export default function AboutPage() {
 
 			<div className="space-y-10">
 				<section>
-					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--muted) mb-4">
+					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--accent) mb-4">
 						Profile
 					</h2>
 					<p className="text-foreground leading-relaxed">
@@ -33,7 +33,7 @@ export default function AboutPage() {
 				</section>
 
 				<section className="border-t border-(--border) pt-10">
-					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--muted) mb-4">
+					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--accent) mb-4">
 						Skills
 					</h2>
 					<div className="flex flex-wrap gap-2">
@@ -49,7 +49,7 @@ export default function AboutPage() {
 				</section>
 
 				<section className="border-t border-(--border) pt-10">
-					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--muted) mb-4">
+					<h2 className="text-xs font-semibold uppercase tracking-widest text-(--accent) mb-4">
 						This Blog
 					</h2>
 					<p className="text-foreground leading-relaxed">

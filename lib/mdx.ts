@@ -31,11 +31,9 @@ export async function markdownToHtml(
 					const child = node.children[i];
 					if (
 						child.type === 'element' &&
-						child.tagName === 'p' &&
-						child.children.length === 1 &&
-						child.children[0].type === 'text'
+						child.tagName === 'p'
 					) {
-						const text = child.children[0].value as string;
+						const text = extractText(child);
 						const embedMatch = text.match(/^::embed\[(.+)\]$/);
 						const internalMatch = text.match(/^::embed-internal\[(.+)\]$/);
 						if (internalMatch) {

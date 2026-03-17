@@ -7,6 +7,7 @@ import CategoryChip from '@/components/CategoryChip';
 import { SITE_NAME } from '@/constant';
 import TableOfContents from '@/components/TableOfContents';
 import Breadcrumb from '@/components/Breadcrumb';
+import CodeCopyButton from '@/components/CodeCopyButton';
 
 type Props = {
 	params: Promise<{ slug: string }>;
@@ -50,6 +51,7 @@ export default async function BlogPostPage({ params }: Props) {
 
 			<TableOfContents headings={headings} />
 
+			<CodeCopyButton />
 			<article className="prose" dangerouslySetInnerHTML={{ __html: html }} />
 
 			<div className="mt-16 pt-8 border-t border-(--border)">

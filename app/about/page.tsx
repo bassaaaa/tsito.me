@@ -27,7 +27,7 @@ export default function AboutPage() {
                         Profile
                     </h2>
                     <p className="text-foreground leading-relaxed">
-                        1996年生まれ、広島県出身。 阪大中退。元国家公務員。
+                        1996年生まれ、広島県出身。元国家公務員。
                         <br />
                         都内でエンジニアとして働いています。
                         <br />

@@ -8,7 +8,6 @@ import { SITE_NAME } from '@/constant';
 import TableOfContents from '@/components/TableOfContents';
 import Breadcrumb from '@/components/Breadcrumb';
 import CodeCopyButton from '@/components/CodeCopyButton';
-import './prose.css';
 
 type Props = {
 	params: Promise<{ slug: string }>;

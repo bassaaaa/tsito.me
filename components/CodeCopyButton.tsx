@@ -10,7 +10,7 @@ export default function CodeCopyButton() {
 			if (pre.querySelector('.code-copy-btn')) return;
 
 			const wrapper = document.createElement('div');
-			wrapper.style.position = 'relative';
+			wrapper.className = 'code-block-wrapper';
 
 			pre.parentNode?.insertBefore(wrapper, pre);
 			wrapper.appendChild(pre);

@@ -11,6 +11,20 @@ import { SITE_NAME } from '@/constant';
 
 export type Heading = { id: string; text: string; level: number };
 
+type MarkdownNode = {
+	type: string;
+	value?: string;
+	children?: MarkdownNode[];
+};
+
+type NoteType = keyof typeof noteLabels;
+
+const noteLabels = {
+	info: 'INFO',
+	warn: 'WARN',
+	alert: 'ALERT',
+} as const;
+
 export async function markdownToHtml(
 	content: string,
 ): Promise<{ html: string; headings: Heading[] }> {
@@ -20,6 +34,7 @@ export async function markdownToHtml(
 	const file = await unified()
 		.use(remarkParse)
 		.use(remarkGfm)
+		.use(remarkNoteBlocks)
 		.use(remarkRehype, { allowDangerousHtml: true })
 		.use(rehypeSlug)
 		.use(() => async (tree) => {
@@ -82,6 +97,106 @@ export async function markdownToHtml(
 		.process(normalizedContent);
 
 	return { html: file.toString(), headings };
+}
+
+function remarkNoteBlocks() {
+	return (tree: MarkdownNode) => {
+		transformNoteBlocks(tree);
+	};
+}
+
+function transformNoteBlocks(node: MarkdownNode) {
+	if (!node.children) return;
+
+	for (const child of node.children) {
+		transformNoteBlocks(child);
+	}
+
+	const nextChildren: MarkdownNode[] = [];
+	for (let i = 0; i < node.children.length; i++) {
+		const child = node.children[i];
+		const inlineNoteType = getInlineNoteType(child);
+		if (inlineNoteType) {
+			const noteBody = stripInlineNoteMarkers(child);
+			nextChildren.push(buildNoteStartNode(inlineNoteType));
+			nextChildren.push(noteBody);
+			nextChildren.push(buildNoteEndNode());
+			continue;
+		}
+
+		const noteType = getNoteStartType(child);
+		if (!noteType) {
+			nextChildren.push(child);
+			continue;
+		}
+
+		const closeIndex = node.children.findIndex((candidate, index) => (
+			index > i && isNoteEnd(candidate)
+		));
+		if (closeIndex === -1) {
+			nextChildren.push(child);
+			continue;
+		}
+
+		nextChildren.push(buildNoteStartNode(noteType));
+		nextChildren.push(...node.children.slice(i + 1, closeIndex));
+		nextChildren.push(buildNoteEndNode());
+		i = closeIndex;
+	}
+
+	node.children = nextChildren;
+}
+
+function buildNoteStartNode(noteType: NoteType): MarkdownNode {
+	const label = noteLabels[noteType];
+	return {
+		type: 'html',
+		value: `<aside class="note-block note-${noteType}"><div class="note-heading"><span class="note-icon" aria-hidden="true"></span><span class="note-label">${label}</span></div>`,
+	};
+}
+
+function buildNoteEndNode(): MarkdownNode {
+	return { type: 'html', value: '</aside>' };
+}
+
+function getNoteStartType(node: MarkdownNode): NoteType | null {
+	const text = extractMarkdownText(node).trim();
+	const match = text.match(/^:::note\s+(info|warn|alert)$/);
+	return match ? (match[1] as NoteType) : null;
+}
+
+function getInlineNoteType(node: MarkdownNode): NoteType | null {
+	const text = extractMarkdownText(node).trim();
+	const match = text.match(/^:::note\s+(info|warn|alert)\s+[\s\S]*\s+:::$/);
+	return match ? (match[1] as NoteType) : null;
+}
+
+function stripInlineNoteMarkers(node: MarkdownNode): MarkdownNode {
+	const stripped = structuredClone(node);
+	const children = stripped.children ?? [];
+	const firstText = children.find((child) => child.type === 'text');
+	const lastText = [...children].reverse().find((child) => child.type === 'text');
+
+	if (firstText?.value) {
+		firstText.value = firstText.value.replace(/^:::note\s+(info|warn|alert)\s*/, '');
+	}
+	if (lastText?.value) {
+		lastText.value = lastText.value.replace(/\s*:::$/, '');
+	}
+
+	stripped.children = children.filter((child) => (
+		child.type !== 'text' || (child.value ?? '').length > 0
+	));
+	return stripped;
+}
+
+function isNoteEnd(node: MarkdownNode): boolean {
+	return extractMarkdownText(node).trim() === ':::';
+}
+
+function extractMarkdownText(node: MarkdownNode): string {
+	if (node.type === 'text') return node.value ?? '';
+	return (node.children ?? []).map(extractMarkdownText).join('');
 }
 
 function normalizeQuoteFences(content: string): string {

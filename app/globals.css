@@ -158,6 +158,72 @@ body {
   margin-bottom: 0;
 }
 
+.prose .note-block {
+  --note-accent: var(--accent);
+  background: color-mix(in srgb, var(--note-accent) 8%, var(--background));
+  border: 1px solid color-mix(in srgb, var(--note-accent) 28%, var(--border));
+  border-left: 4px solid var(--note-accent);
+  border-radius: 8px;
+  color: var(--foreground);
+  display: block;
+  margin: 1.75em 0;
+  padding: 1rem 1.25rem;
+}
+
+.prose .note-heading {
+  align-items: center;
+  color: var(--note-accent);
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose .note-icon {
+  align-items: center;
+  border: 1.5px solid var(--note-accent);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 700;
+  height: 1.15rem;
+  justify-content: center;
+  line-height: 1;
+  width: 1.15rem;
+}
+
+.prose .note-icon::before {
+  content: var(--note-icon);
+}
+
+.prose .note-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.prose .note-block p:last-child,
+.prose .note-block ul:last-child,
+.prose .note-block ol:last-child,
+.prose .note-block pre:last-child {
+  margin-bottom: 0;
+}
+
+.prose .note-info {
+  --note-accent: #0284c7;
+  --note-icon: "✓";
+}
+
+.prose .note-warn {
+  --note-accent: #d97706;
+  --note-icon: "!";
+}
+
+.prose .note-alert {
+  --note-accent: #dc2626;
+  --note-icon: "✕";
+}
+
 .prose strong { font-weight: 700; }
 
 .prose hr {

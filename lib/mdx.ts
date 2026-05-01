@@ -166,6 +166,7 @@ function getNoteStartType(node: MarkdownNode): NoteType | null {
 }
 
 function getInlineNoteType(node: MarkdownNode): NoteType | null {
+	if (node.type === 'text') return null;
 	const text = extractMarkdownText(node).trim();
 	const match = text.match(/^:::note\s+(info|warn|alert)\s+[\s\S]*\s+:::$/);
 	return match ? (match[1] as NoteType) : null;
